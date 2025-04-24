@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        box-sizing: border-box;
+        font-family: sans-serif;
+        background-color: aliceblue;
+      }
+      @media screen and (max-width: 768px) {
+        #score,
+        #chrono {
+          font-size: 16px;
+        }
+        .btn {
+          width: 50px;
+          height: 50px;
+          font-size: 35px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        #score,
+        #chrono {
+          font-size: 14px;
+        }
+        .btn {
+          width: 40px;
+          height: 40px;
+          font-size: 30px;
+        }
+        .cadr {
+          margin: 10px auto;
+          border-radius: 10px;
+        }
+      }
+      #score,
+      #chrono {
+        font-size: 18px;
+        color: #333;
+        margin: 10px, 10px, 10px, 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .cadr {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        margin: 20px, 20px, 40px, 20px;
+        border: none;
+        box-shadow: 10px 5px 5px 0px rgba(0, 0, 0, 0.2);
+        background-image: url(game.jpg);
+        border-radius: 20px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      .btn {
+        margin: 20px;
+        width: 40px;
+        height: 30px;
+        cursor: pointer;
+        border: none;
+        color: rgb(15, 14, 14);
+        font-size: 45px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lb">
+      <label id="score" for="score">Your score:</label>
+      <label id="chrono" for="chrono">Chrono:</label>
+    </div>
+    <div class="cadr">
+      <h1 class="btn" onclick="hey()">🖱️</h1>
+    </div>
+  </body>
+</html>
+<script>
+  var btn = document.querySelector(".btn");
+  var score = 0;
+  var timer = 30; // seconds
+  var timerInterval;
+  var chronos = document.getElementById("chrono"); // seconds
+
+  btn.addEventListener("click", chrono());
+
+  function stoptime() {
+    clearInterval(timerInterval);
+  }
+  btn.addEventListener("click", chrono());
+  function chrono() {
+    var chrono = 1; // seconds
+    stoptime();
+    timerInterval = setInterval(() => {
+      chrono--;
+      chronos.innerHTML = `Chrono: ${chrono}`;
+      if (chrono <= 0) {
+        clearInterval(timerInterval); // clear the interval
+        hey();
+        return (chrono = 1); // reset the chrono
+      }
+    }, 1000); // 1 second
+  }
+
+  function startGame() {
+    document.querySelector(".btn").addEventListener("click", function () {
+      score++;
+      document.getElementById("score").innerText = "Your score: " + score;
+    });
+
+    timerInterval = setInterval(function () {
+      timer--;
+      if (timer <= 0) {
+        clearInterval(timerInterval);
+        alert("Time's up! Your score is: " + score);
+      }
+    }, 1000);
+  }
+
+  window.onload = startGame;
+
+  function hey() {
+    var btn = document.querySelector(".btn");
+    var score = 0;
+    var timer = 30; // seconds
+    var timerInterval;
+
+    btn.style.cssText = `
+              margin: 20px;
+              width: 100px;
+              height: 30px;
+              position: absolute;
+              top: ${Math.floor(Math.random() * 80)}%;
+              left: ${Math.floor(Math.random() * 80)}%;
+              border: none;
+              border-radius: 5px;
+              color: rgb(15, 14, 14);
+              font-size: 15px;
+              cursor: pointer;
+               font-size: 45px;`;
+  }
+</script>
